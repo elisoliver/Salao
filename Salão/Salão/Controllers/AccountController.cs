@@ -139,7 +139,14 @@ namespace Salão.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            // New Db
+            ApplicationDbContext db = new ApplicationDbContext();
+
+            //
+            RegisterViewModel model = new RegisterViewModel();
+
+            // Return the model view
+            return View(model);
         }
 
         //
@@ -149,6 +156,8 @@ namespace Salão.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            ApplicationDbContext db = new ApplicationDbContext();
+
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
